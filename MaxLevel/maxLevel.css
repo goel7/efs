@@ -148,7 +148,7 @@ input:focus::placeholder {
 
   font-size: 1.5rem;
   line-height: 0.6;
-  /* visibility: hidden; */
+  visibility: hidden;
 }
 
 #results p {

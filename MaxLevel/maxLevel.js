@@ -1,14 +1,10 @@
 const button = document.getElementById("EnterBtn");
 const totalBEElem = document.getElementById("totalBE");
 const waterLvlElem = document.getElementById("waterLvl");
-const optMiscElem = document.getElementById("optMisc");
-
-let miscLvlsElem = document.getElementById("miscLevel");
-let mainLvlsElem = document.getElementById("mainLevel");
-let turtleLvlsElem = document.getElementById("turtleLevel");
-let gkLvlsElem = document.getElementById("GKLevel");
+const fireLvlElem = document.getElementById("fireLvl");
 
 const resultsElem = document.getElementById("results");
+let maxLevelELem = document.getElementById("maxLevelResult");
 
 class EasterDistribution {
   constructor(base, power, discount) {
@@ -55,7 +51,8 @@ class EasterDistribution {
   }
 }
 
-function distributeBE(totalBE, discount) {
+// Function name changed from "distributeBE" --> "calcEasterLvls"
+function calcEasterLvls(totalBE, discount) {
   const [base, power] = getBasePower(totalBE);
   const easterDist = new EasterDistribution(base, power, discount);
 
@@ -67,7 +64,7 @@ function distributeBE(totalBE, discount) {
   };
 }
 
-// normalized function below rounds base to 2 d.p.
+// normalized function below rounds base to 3 d.p.
 function normalize(x) {
   let preE = Number(String(x).split("e")[0]);
   let postE = Number(String(x).split("e")[1]);
@@ -75,7 +72,7 @@ function normalize(x) {
   const degree = Math.floor(Math.log10(Math.abs(preE)));
   preE = preE / 10 ** degree;
   postE = postE + degree;
-  const result = `${preE.toFixed(2)}e${postE}`;
+  const result = `${preE.toFixed(3)}e${postE}`;
 
   return result;
 }
@@ -111,54 +108,25 @@ function getBasePower(input) {
   }
 }
 
-const calcWaterDiscount = (waterLevel) =>
-  waterLevel >= 150 ? 0.95 ** 150 : 0.95 ** waterLevel;
+// NOTE: Adapt to boss health (include multiplier)
+function calcHealth(level) {
+  const factor = Math.floor((level - 1) / 500);
+  const remain = level - factor * 500;
 
-function updateWaterInput() {
-  let waterLevel = parseFloat(waterLvlElem.value);
-  if (isNaN(waterLevel) || waterLevel <= 0) {
-    waterLvlElem.value = "";
-  } else {
-    waterLvlElem.value = Math.min(150, Math.floor(waterLevel));
+  let logsum = 0;
+  for (let i = 1; i < factor; i++) {
+    logsum += Math.log10(1.145 + 0.001 * i) * 500;
   }
+  logsum += Math.log10(1.145 + 0.001 * factor) * remain;
+
+  base = 10 ** (logsum - Math.floor(logsum)) * 4.2275;
+  power = Math.floor(logsum) + 48;
+
+  //   return [base, power];
+
+  return normalize(`${base}e${power}`);
 }
 
-function updateOptMiscInput() {
-  let optMisc = parseFloat(optMiscElem.value);
-  if (isNaN(optMisc) || optMisc <= 0) {
-    optMiscElem.value = "";
-  } else {
-    optMiscElem.value = Math.floor(optMisc);
-  }
-}
+function calcDamage(farmerNo, farmerLevel) {}
 
-function updateDistribution() {
-  updateWaterInput();
-  updateOptMiscInput();
-
-  const discount = calcWaterDiscount(parseFloat(waterLvlElem.value) || 0);
-  const optMisc = parseFloat(optMiscElem.value) || 0;
-  const { Misc, Main, Turtle, GK } = distributeBE(totalBEElem.value, discount);
-
-  if (optMiscElem.value <= 0) {
-    optMiscElem.value = "";
-    miscLvlsElem.textContent = Misc;
-  } else if (Number(optMiscElem.value) > Number(Misc)) {
-    miscLvlsElem.textContent = `${Misc} (+ N/A)`;
-  } else if (optMiscElem.value > 0) {
-    miscLvlsElem.textContent = `${Misc} (+${Number(Misc) - Number(optMisc)})`;
-  }
-
-  mainLvlsElem.textContent = Main;
-  turtleLvlsElem.textContent = Turtle;
-  gkLvlsElem.textContent = GK;
-
-  resultsElem.style.visibility = "visible";
-}
-
-const updateOnEnter = (e) => e.key === "Enter" && updateDistribution();
-
-button.addEventListener("click", updateDistribution);
-totalBEElem.addEventListener("keyup", updateOnEnter);
-optMiscElem.addEventListener("keyup", updateOnEnter);
-waterLvlElem.addEventListener("keyup", updateOnEnter);
+console.log(calcHealth(141460));
