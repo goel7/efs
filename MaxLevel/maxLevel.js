@@ -110,23 +110,64 @@ function getBasePower(input) {
 
 // NOTE: Adapt to boss health (include multiplier)
 function calcHealth(level) {
-  const factor = Math.floor((level - 1) / 500);
-  const remain = level - factor * 500;
+  let base;
+  let power;
 
-  let logsum = 0;
-  for (let i = 1; i < factor; i++) {
-    logsum += Math.log10(1.145 + 0.001 * i) * 500;
+  if (level > 500 && level <= 200000) {
+    const factor = Math.floor((level - 1) / 500);
+    const remain = level - factor * 500;
+
+    let logsum = 0;
+    for (let i = 1; i < factor; i++) {
+      logsum += Math.log10(1.145 + 0.001 * i) * 500;
+    }
+    logsum += Math.log10(1.145 + 0.001 * factor) * remain;
+
+    base = 10 ** (logsum - Math.floor(logsum)) * 4.2275;
+    power = Math.floor(logsum) + 48;
+  } else if (level > 200000) {
+    const denormal = Math.log10(1.545) * (level - 200001);
+
+    base = 10 ** (denormal - Math.floor(denormal)) * 1.24;
+    power = Math.floor(denormal) + 25409;
   }
-  logsum += Math.log10(1.145 + 0.001 * factor) * remain;
-
-  base = 10 ** (logsum - Math.floor(logsum)) * 4.2275;
-  power = Math.floor(logsum) + 48;
-
-  //   return [base, power];
 
   return normalize(`${base}e${power}`);
 }
 
+function calcEggs(level) {
+  const eggsDenormal = Math.log10(1.15) * level;
+  const eggsBase = 10 ** (eggsDenormal - Math.floor(eggsDenormal));
+  const eggsPower = Math.floor(eggsDenormal);
+
+  return [eggsBase, eggsPower];
+}
+
 function calcDamage(farmerNo, farmerLevel) {}
 
-console.log(calcHealth(141460));
+// console.log(calcHealth(210330));
+// console.log(calcEggs(211830));
+
+//  TEMPORARY
+//  TEMPORARY
+//  TEMPORARY BELOW IS TEMPORARY
+
+const totalGE = 8450;
+const sound = 40;
+const soundGE = (sound * (sound + 1)) / 2;
+const electric = 9;
+const elecGE = (electric * (electric + 1)) / 2;
+remainGE = totalGE - soundGE - elecGE;
+
+function earthWater(earth, water) {
+  console.log("-----");
+  console.log(remainGE);
+  const result = earth ** 2 / 0.95 ** water / 1000;
+  const price = (earth * (earth + 1)) / 2 + (water * (water + 1)) / 2;
+  console.log(result.toFixed(2), price);
+  console.log(remainGE - price);
+  console.log("-----");
+}
+
+earthWater(61, 106);
+// // earthWater(66, 121);
