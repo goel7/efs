@@ -21,6 +21,17 @@ Two hosts serve this repo, from **different branches** on purpose:
 - Vercel PRs get an auto preview deploy (`efstools-git-<branch>-...vercel.app`). Its
   URL is posted as a bot comment on the PR.
 
+### Routing (`vercel.json`)
+
+- `/` **redirects** (temporary/307) to `/eastereggs` — since there's only one tool,
+  the root opens it directly instead of the home page.
+- `/eastereggs` **rewrites** to `/BE-Allocation/allocateBE.html` — clean URL, the file
+  path stays hidden. Because of this rewrite, `allocateBE.html` links its CSS/JS with
+  **absolute** paths (`/BE-Allocation/...`), not relative — keep them absolute or they
+  404 under `/eastereggs`.
+- The home page still exists and is reachable at `/index.html`. When more tools are
+  added, drop the `/` → `/eastereggs` redirect to restore home as the landing page.
+
 ## Git / remote
 
 - Remote `origin` = `https://github.com/goel7/efs-optimizer.git` (repo was renamed
