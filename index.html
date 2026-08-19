@@ -3,12 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="indexStyles.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <title>EFS Tools</title>
   </head>
   <body>
-    <h1>Home</h1>
-    <a href="BE-Allocation/allocateBE.html">Black Egg Allocation</a>
-    <!-- <a href="MaxLevel/maxLevel.html">Calc Max Level</a> -->
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-title" href="index.html">EFS Tools</a>
+      </div>
+    </header>
+
+    <main class="container page">
+      <section class="hero">
+        <h1>EFS Tools</h1>
+        <p class="hero__subtitle">
+          Tools &amp; calculators for Egg Farm Simulator
+        </p>
+      </section>
+
+      <section class="tool-grid">
+        <!-- TOOL CARD — to add a new tool, copy one <a class="tool-card"> block
+             below, update the href, title, and description. -->
+        <a class="tool-card" href="BE-Allocation/allocateBE.html">
+          <h2 class="tool-card__title">Black Egg Allocation</h2>
+          <p class="tool-card__desc">
+            Work out the optimal Easter Egg setup for your Black Egg total.
+          </p>
+        </a>
+        <!-- END TOOL CARD -->
+      </section>
+    </main>
   </body>
 </html>
