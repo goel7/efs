@@ -152,10 +152,10 @@ function calcDamage(farmerNo, farmerLevel) {}
 //  TEMPORARY
 //  TEMPORARY BELOW IS TEMPORARY
 
-const totalGE = 8450;
-const sound = 40;
+const totalGE = 53;
+const sound = 3;
 const soundGE = (sound * (sound + 1)) / 2;
-const electric = 9;
+const electric = 0;
 const elecGE = (electric * (electric + 1)) / 2;
 remainGE = totalGE - soundGE - elecGE;
 
@@ -164,10 +164,13 @@ function earthWater(earth, water) {
   console.log(remainGE);
   const result = earth ** 2 / 0.95 ** water / 1000;
   const price = (earth * (earth + 1)) / 2 + (water * (water + 1)) / 2;
-  console.log(result.toFixed(2), price);
+  console.log(result.toFixed(4), price);
   console.log(remainGE - price);
   console.log("-----");
 }
 
-earthWater(61, 106);
-// // earthWater(66, 121);
+// earthWater(61, 106);
+// earthWater(66, 121);
+// earthWater(9, 1);
+// earthWater(8, 4);
+// earthWater(7, 5);
