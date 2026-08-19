@@ -29,8 +29,13 @@ Two hosts serve this repo, from **different branches** on purpose:
   path stays hidden. Because of this rewrite, `allocateBE.html` links its CSS/JS with
   **absolute** paths (`/BE-Allocation/...`), not relative — keep them absolute or they
   404 under `/eastereggs`.
-- The home page still exists and is reachable at `/index.html`. When more tools are
-  added, drop the `/` → `/eastereggs` redirect to restore home as the landing page.
+- The home page still exists and is reachable at `/index.html`. The `/` → `/eastereggs`
+  redirect exists only because there's currently one tool.
+
+> **⚠️ When adding a new tool to this site: STOP and ask the user whether to remove the
+> `/` → `/eastereggs` redirect in `vercel.json`, so the root (`efstools.vercel.app`)
+> goes back to showing the home hub instead of jumping straight into the egg tool. Do
+> not change or keep the redirect silently — confirm with the user first.**
 
 ## Git / remote
 
