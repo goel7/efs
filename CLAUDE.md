@@ -31,23 +31,15 @@ Two hosts serve this repo, from **different branches** on purpose:
 
 ## Structure
 
-- `index.html` — home page / **tool hub**. A responsive card grid; designed to grow
-  to many tools. Add a tool by copy-pasting one `.tool-card` block (see the comment
-  marker in the grid).
-- `styles.css` — **single shared stylesheet** for the whole site. All design tokens
-  are CSS variables (colors, ~8px spacing scale, radius, max-width). Any new tool page
-  just links this file (`../styles.css` from a subfolder) and inherits the look.
-- `BE-Allocation/` — Black Egg Allocation calculator (`allocateBE.html` + `.js`).
-  Computes optimal Easter Egg setup from a Black Egg total.
-- `MaxLevel/` — an in-progress Max Level calc. Not linked from home yet; the JS
-  bottom section is scratch/experimental.
+Each page has its **own** stylesheet (no shared stylesheet — a `redesign/site-ui` PR
+that introduced one was rejected and discarded).
 
-## Design system
-
-Flat and simple — **no gradients, no heavy shadows, no decorative animations.** Warm
-off-white background, white cards with 1px soft borders, near-black + muted text, a
-single muted-gold accent (darkened where needed for WCAG AA), system font stack.
-Responsive (mobile-first), real `<label>`s tied to inputs, visible focus states.
+- `index.html` — home page. Currently a simple heading + link list. Styled by
+  `indexStyles.css`.
+- `BE-Allocation/` — Black Egg Allocation calculator (`allocateBE.html` + `.js` +
+  `allocateBE.css`). Computes optimal Easter Egg setup from a Black Egg total.
+- `MaxLevel/` — an in-progress Max Level calc (`maxLevel.html` + `.js` + `.css`). Not
+  linked from home yet; the JS bottom section is scratch/experimental.
 
 ## Calculator constraints (BE-Allocation)
 
