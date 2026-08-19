@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/", "destination": "/eastereggs", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/eastereggs", "destination": "/BE-Allocation/allocateBE.html" }
+  ]
+}
